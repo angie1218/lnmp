@@ -1,0 +1,32 @@
+filebeat.inputs:
+- type: log
+
+  # Change to true to enable this input configuration.
+  enabled: true
+
+  # paths指定要监控的日志
+  paths:
+    - /var/log/applogs/*.log
+  # 如果设置为trueFilebeat从文件尾开始监控文件新增内容把新增的每一行文件作为一个事件依次发送而不是从文件开始处重新发送所有内容。
+  tail_files: true
+
+processors:
+ - decode_json_fields:
+     fields: ['message']
+     target: ''
+     overwrite_keys: true
+ 
+ - drop_fields:
+     fields: ["message", "ecs", "agent", "log"]
+
+ - fingerprint:
+     fields: ["id", "user_name"]
+     target_field: "@metadata._id"
+ 
+setup.template.enabled: false
+setup.ilm.enabled: false
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  index: "logs_json"
+  bulk_max_size: 1000

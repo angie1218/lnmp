@@ -1,0 +1,43 @@
+version: '3.0'
+services:
+    rabbitmq1:
+      container_name: rabbitmq
+      build:
+        context: .
+        args:
+          - RABBITMQ_VERSION=latest
+      ports:
+          - 5672:5672 #集群内部访问的端口
+          - 15672:15672 #外部访问的端口
+      volumes:
+          - ../../data/rabbitmq/mq:/var/lib/rabbitmq
+      environment:
+          - RABBITMQ_DEFAULT_USER=guest #用户名
+          - RABBITMQ_DEFAULT_PASS=guest #密码
+      restart: always
+      networks:
+        - services_default
+    rabbitmq2:
+      container_name: rabbitmq2
+      build:
+        context: .
+        args:
+          - RABBITMQ_VERSION=latest
+      ports:
+          - 5673:5672 #集群内部访问的端口
+          - 15673:15672 #外部访问的端口
+      volumes:
+          - ../../data/rabbitmq/mq2:/var/lib/rabbitmq
+      environment:
+          - CLUSTERED=true
+          - CLUSTER_WITH=rabbitmq1
+          - RAM_NODE=true
+      links:
+          - rabbitmq1
+      restart: always
+      networks:
+        - services_default
+
+networks:
+    services_default:
+        external: true

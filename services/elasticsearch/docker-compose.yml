@@ -1,0 +1,27 @@
+version: '2'
+services:
+    elasticsearch:
+        container_name: elasticsearch
+        build:
+          context: .
+          args:
+            - ELASTICSEARCH_VERSION=7.11.1
+        ports:
+        - "9200:9200"
+        - "9300:9300"
+        environment:
+        - TZ=Asia/Shanghai
+        - discovery.type=single-node
+        - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+        volumes:
+        - ../../data/elasticsearch/plugins/:/usr/share/elasticsearch/plugins/
+        - ../../data/elasticsearch/:/usr/share/elasticsearch/data/
+        - ../../logs/elasticsearch/:/usr/share/elasticsearch/logs/
+        - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        restart: always
+        networks:
+        - services_default
+
+networks:
+    services_default:
+      external: true
