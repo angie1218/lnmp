@@ -1,4 +1,4 @@
-FROM redis:latest
+FROM redis:7.0.8
 
 # 设置时区为上海
 ENV TZ=Asia/Shanghai
