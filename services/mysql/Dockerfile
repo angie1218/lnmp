@@ -1,8 +1,5 @@
-FROM mysql:latest
+FROM mysql:8.0
 
 # set timezome
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Ubuntu软件源选择中国的服务器
-RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
