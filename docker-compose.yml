@@ -1,0 +1,25 @@
+version: '3.0'
+services:
+  postgres: # 相关文档 https://hub.docker.com/_/postgres
+    # 容器名称
+    container_name: postgres
+    build:
+      context: .
+      args:
+        - PGSQL_VER=15
+    volumes:
+      - ../data/pgsql:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432"
+    user: postgres
+    restart: always
+    networks:
+        - services_default
+
+networks:
+    services_default:
+      external: true
