@@ -1,0 +1,27 @@
+version: '2.1'
+services:
+  web-yapi:
+    image: jayfong/yapi:latest
+    container_name: yapi
+    restart: always
+    ports:
+      - 3003:3000
+    environment:
+      - TZ=Asia/Shanghai
+      - YAPI_ADMIN_ACCOUNT=admin@ducafecat.tech
+      - YAPI_ADMIN_PASSWORD=root
+      - YAPI_CLOSE_REGISTER=true
+      - YAPI_DB_SERVERNAME=mongodb_mongodb_1
+      - YAPI_DB_PORT=27017
+      - YAPI_DB_DATABASE=yapi
+      - YAPI_DB_USER=mass_yapi
+      - YAPI_DB_PASS=mass_yapi
+      - YAPI_MAIL_ENABLE=false
+      - YAPI_LDAP_LOGIN_ENABLE=false
+      - YAPI_PLUGINS=[]
+    networks:
+      - services_default
+
+networks:
+    services_default:
+      external: true

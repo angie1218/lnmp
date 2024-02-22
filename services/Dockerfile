@@ -1,3 +1,0 @@
-ARG PGSQL_VER
-
-FROM postgres:${PGSQL_VER}

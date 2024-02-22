@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  mongodb:
+    image: mongo:6.0.6
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+    restart: always
+    networks:
+      - services_default
+
+volumes:
+  mongodb_data_container:
+
+networks:
+    services_default:
+      external: true

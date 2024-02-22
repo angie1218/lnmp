@@ -5,7 +5,7 @@ services:
         build:
           context: .
           args:
-            - ELASTICSEARCH_VERSION=7.11.1
+            - ELASTICSEARCH_VERSION=7.10.1
         ports:
         - "9200:9200"
         - "9300:9300"

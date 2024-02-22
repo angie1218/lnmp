@@ -1,5 +1,4 @@
 FROM php:7.2-fpm
-MAINTAINER goozp "gzp@goozp.com"
 
 # 设置时区
 ENV TZ=Asia/Shanghai
@@ -43,14 +42,14 @@ RUN pecl install /home/xlswriter.tgz && echo "extension=xlswriter.so" > /usr/loc
 RUN pecl install /home/mongodb.tgz && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
 
 # 安装 Swoole
-RUN cd /home \
-    && git clone https://gitee.com/swoole/swoole.git \
-    && cd swoole \
-    && phpize \
-    && ./configure --enable-openssl -with-php-config=/usr/local/bin/php-config \
-    && make \
-    && make install \
-    && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini
+# RUN cd /home \
+#     && git clone https://gitee.com/swoole/swoole.git \
+#     && cd swoole \
+#     && phpize \
+#     && ./configure --enable-openssl -with-php-config=/usr/local/bin/php-config \
+#     && make \
+#     && make install \
+#     && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini
 
 # 安装 Composer
 ENV COMPOSER_HOME /root/composer
@@ -67,3 +66,4 @@ WORKDIR /data
 
 # 写权限
 RUN usermod -u 1000 www-data
+RUN chown -R www-data:www-data /opt
