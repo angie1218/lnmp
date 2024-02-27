@@ -4,17 +4,17 @@ port=3306
 [mysql]
 
 [mysqld]
+character-set-server=utf8mb4
 default-storage-engine=INNODB
 max_connections=512
-skip-host-cache
 skip-name-resolve
 max_allowed_packet = 4M
 
 server_id=1
 log-bin=mysql-bin
-
 slow_query_log = 1
 slow_query_log_file =/var/lib/mysql-logs/slow.log
+log_error = /var/lib/mysql-logs/error.log
 long_query_time = 1
 log-queries-not-using-indexes
 max_connections = 1024
