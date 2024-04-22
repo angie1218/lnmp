@@ -4,9 +4,9 @@ port=3306
 [mysql]
 
 [mysqld]
+host_cache_size = 0
 character-set-server=utf8mb4
 default-storage-engine=INNODB
-max_connections=512
 skip-name-resolve
 max_allowed_packet = 4M
 
@@ -19,6 +19,10 @@ long_query_time = 1
 log-queries-not-using-indexes
 max_connections = 1024
 back_log = 128
-wait_timeout = 100
-interactive_timeout = 200
+wait_timeout = 1800
+interactive_timeout = 3600
 sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+
+default_authentication_plugin = caching_sha2_password
+max_binlog_size = 512M
+binlog_expire_logs_seconds = 86400
